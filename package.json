@@ -1,36 +1,56 @@
 {
   "name": "api_concessionaria_de_automoveis",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API REST para gerenciamento de uma concessionária de automóveis (Express, TypeScript, Prisma, PostgreSQL, Swagger e Zod)",
+  "main": "dist/index.js",
   "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ClaytonAugust/api_concessionaria_de_automoveis.git"
+    "url": "https://github.com/ClaytonAugust/api_concessionaria_de_automoveis.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "typescript",
+    "prisma",
+    "swagger",
+    "zod",
+    "postgresql",
+    "api",
+    "concessionaria"
+  ],
+  "author": "Clayton Augusto",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ClaytonAugust/api_concessionaria_de_automoveis/issues"
   },
   "homepage": "https://github.com/ClaytonAugust/api_concessionaria_de_automoveis#readme",
   "dependencies": {
-    "e": "^0.2.33",
-    "express": "^5.1.0",
-    "init": "^0.1.2",
-    "npx": "^10.2.2",
-    "prisma": "^6.16.3"
+    "@prisma/client": "^6.16.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.6.2",
-    "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.8.6",
+    "eslint": "^9.10.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^6.16.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

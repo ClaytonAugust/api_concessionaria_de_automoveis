@@ -13,3 +13,76 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Cliente {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  email     String    @unique
+  cpf       String    @unique
+  telefone  String?
+  enderecos Endereco[]
+  vendas    Venda[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("clientes")
+}
+
+model Endereco {
+  id         Int      @id @default(autoincrement())
+  rua        String
+  numero     String
+  cidade     String
+  estado     String
+  cep        String
+  clienteId  Int
+  cliente    Cliente  @relation(fields: [clienteId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("enderecos")
+}
+
+model Carro {
+  id          Int       @id @default(autoincrement())
+  marca       String
+  modelo      String
+  ano         Int
+  preco       Float
+  status      String    @default("disponível")
+  vendas      Venda[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("carros")
+}
+
+model Vendedor {
+  id         Int       @id @default(autoincrement())
+  nome       String
+  email      String    @unique
+  telefone   String?
+  vendas     Venda[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@map("vendedores")
+}
+
+model Venda {
+  id          Int       @id @default(autoincrement())
+  dataVenda   DateTime  @default(now())
+  valorFinal  Float
+  clienteId   Int
+  carroId     Int
+  vendedorId  Int
+
+  cliente  Cliente  @relation(fields: [clienteId], references: [id])
+  carro    Carro    @relation(fields: [carroId], references: [id])
+  vendedor Vendedor @relation(fields: [vendedorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("vendas")
+}
